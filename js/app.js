@@ -23,7 +23,7 @@ const showPlayerDetails = (players) => {
         </div>
         <h2>Name: ${player.strPlayer}</h2>
         <h5>Country: ${player.strNationality}</h5>
-        <p>desciprtion</p>
+        
             <div class="allbutton">
                 <button class="btn btn-danger">Delete</button>
                 <button onclick="details('${player.idPlayer}')" class="btn btn-success">Details</button>
@@ -48,6 +48,14 @@ const details = (playerId) => {
 
 const playerDetails = (player) => {
     console.log(player.strPlayer);
+    if (player.strGender == 'Male') {
+        document.getElementById('female').style.display = 'none';
+        document.getElementById('male').style.display = 'block';
+    } else {
+        document.getElementById('male').style.display = 'none';
+        document.getElementById('female').style.display = 'block';
+    }
+
     document.getElementById('details-container').innerHTML = `
     <div>
                         <img class="w-50" src="${player.strThumb ? player.strThumb : ''}" alt="">
