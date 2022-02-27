@@ -1,6 +1,8 @@
 
 
 const allPayers = () => {
+    toggleSipnner('block');
+    document.getElementById('player-container').textContent = '';
     const searchValue = document.getElementById('serach-box').value;
     console.log(searchValue);
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${searchValue}`;
@@ -12,6 +14,7 @@ const allPayers = () => {
 }
 
 const showPlayerDetails = (players) => {
+    document.getElementById('player-container').textContent = '';
     const parent = document.getElementById('player-container');
     console.log(players);
     for (const player of players) {
@@ -32,6 +35,7 @@ const showPlayerDetails = (players) => {
         </div>`
 
         parent.appendChild(div);
+        toggleSipnner('none');
     }
 
 
@@ -39,7 +43,8 @@ const showPlayerDetails = (players) => {
 };
 
 const details = (playerId) => {
-    const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${playerId}`
+    const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${playerId}`;
+    toggleSipnner2('block');
     console.log(url);
     fetch(url)
         .then(res => res.json())
@@ -48,6 +53,7 @@ const details = (playerId) => {
 
 const playerDetails = (player) => {
     console.log(player.strPlayer);
+    toggleSipnner2('none');
     if (player.strGender == 'Male') {
         document.getElementById('female').style.display = 'none';
         document.getElementById('male').style.display = 'block';
@@ -67,3 +73,14 @@ const playerDetails = (player) => {
                     </div>
     `
 }
+
+
+const toggleSipnner = (displayStyle) => {
+    document.getElementById('spinner').style.display = displayStyle;
+
+}
+const toggleSipnner2 = (displayStyle) => {
+    document.getElementById('spinner2').style.display = displayStyle;
+
+}
+
