@@ -9,7 +9,16 @@ const allPayers = () => {
 
     fetch(url)
         .then(res => res.json())
-        .then(data => showPlayerDetails(data.player));
+        .then(data => {
+            if (data.player == null) {
+                console.log('player not found');
+                toggleSipnner('none');
+                document.getElementById('p').style.display = 'block';
+            } else {
+                document.getElementById('p').style.display = 'none';
+                showPlayerDetails(data.player);
+            }
+        });
     console.log(url);
 }
 
