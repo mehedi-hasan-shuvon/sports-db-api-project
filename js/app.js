@@ -2,7 +2,10 @@
 
 const allPayers = () => {
     toggleSipnner('block');
+    document.getElementById('details-container').textContent = '';
     document.getElementById('player-container').textContent = '';
+    document.getElementById('female').style.display = 'none';
+    document.getElementById('male').style.display = 'none';
     const searchValue = document.getElementById('serach-box').value;
     console.log(searchValue);
     const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${searchValue}`;
@@ -26,8 +29,10 @@ const showPlayerDetails = (players) => {
     document.getElementById('player-container').textContent = '';
     const parent = document.getElementById('player-container');
     console.log(players);
+    let counter = 0;
     for (const player of players) {
         const div = document.createElement('div');
+        div.setAttribute('id', `div-${counter}`);
         div.innerHTML = `
         <div class="card border p-5 mb-2">
         <div class="pro-pic">
@@ -37,12 +42,12 @@ const showPlayerDetails = (players) => {
         <h5>Country: ${player.strNationality}</h5>
         
             <div class="allbutton">
-                <button class="btn btn-danger">Delete</button>
+                <button onclick="deletePlayer('div-${counter}')" class="btn btn-danger">Delete</button>
                 <button onclick="details('${player.idPlayer}')" class="btn btn-success">Details</button>
             </div>
     
         </div>`
-
+        counter++;
         parent.appendChild(div);
         toggleSipnner('none');
     }
@@ -50,6 +55,12 @@ const showPlayerDetails = (players) => {
 
 
 };
+
+const deletePlayer = (div) => {
+    document.getElementById(div).textContent = '';
+    // div.style.display = 'none';
+};
+
 
 const details = (playerId) => {
     const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${playerId}`;
